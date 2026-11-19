@@ -30,6 +30,9 @@ jobs:
           yes | "$SDKMANAGER" --licenses > /dev/null || true
           "$SDKMANAGER" "platform-tools" "platforms;android-36" "platforms;android-36.1" "build-tools;36.0.0"
 
+      - name: Remove developer machine Java override
+        run: sed -i '/^org.gradle.java.home=/d' gradle.properties
+
       - name: Compile installable debug APK
         run: bash ./gradlew --no-daemon assembleDebug
 
